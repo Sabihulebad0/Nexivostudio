@@ -164,7 +164,7 @@ export default function Hero() {
           </div>
 
           {/* Right — Form */}
-          <div className="hero-form">
+          <div className="hero-form pt-8 lg:pt-12">
             <LeadForm />
           </div>
         </div>

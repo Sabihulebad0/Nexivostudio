@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Palette, Code2, Share2, SearchCheck, type LucideIcon } from 'lucide-react';
 import { NAV_LINKS, SERVICE_CATEGORIES } from '@/lib/constants';
@@ -46,8 +47,8 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#home" className="font-grotesk font-bold text-xl text-brand-orange tracking-tight shrink-0">
-              NexivoStudio
+            <a href="#home" className="shrink-0">
+              <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} priority className="h-11 w-auto" />
             </a>
 
             {/* Desktop Nav */}
@@ -184,7 +185,7 @@ export default function Header() {
               className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-[#111111] border-l border-white/10 md:hidden flex flex-col overflow-y-auto"
             >
               <div className="flex items-center justify-between px-6 h-16 shrink-0">
-                <span className="font-grotesk font-bold text-brand-orange">NexivoStudio</span>
+                <Image src="/logo_nexivo.png" alt="NexivoStudio" width={140} height={40} className="h-10 w-auto" />
                 <button
                   onClick={closeMobile}
                   className="p-2 text-brand-cream/60 hover:text-brand-orange transition-colors"

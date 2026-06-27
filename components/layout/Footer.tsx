@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { XIcon, InstagramIcon, LinkedInIcon, FacebookIcon } from '@/components/ui/SocialIcons';
 import { NAV_LINKS, SERVICES } from '@/lib/constants';
@@ -9,8 +10,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Column 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="font-grotesk font-bold text-2xl text-brand-orange mb-3">
-              NexivoStudio
+            <div className="mb-3">
+              <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} className="h-11 w-auto" />
             </div>
             <p className="font-bricolage text-sm text-white/50 leading-relaxed mb-6 max-w-xs">
               We craft digital experiences that grow brands, drive traffic, and convert visitors
