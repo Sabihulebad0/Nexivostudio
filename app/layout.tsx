@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Afacad, Quicksand } from 'next/font/google';
 import './globals.css';
+import Script from 'next/script';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ModalProvider } from '@/context/ModalContext';
@@ -12,7 +13,6 @@ const afacad = Afacad({
   variable: '--font-host-grotesk',
   display: 'swap',
 });
-
 const quicksand = Quicksand({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -49,6 +49,19 @@ export default function RootLayout({
           <Footer />
           <ScheduleCallModal />
         </ModalProvider>
+
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-BCR6PX9DWW"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BCR6PX9DWW');
+          `}
+        </Script>
       </body>
     </html>
   );
