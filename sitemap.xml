@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:fo="http://www.w3.org/1999/XSL/Format"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.nexivostudio.io/</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design/ui-ux-design</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design/landing-page-design</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design/e-commerce-design</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design/brand-identity-style-guides</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design/website-redesign</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-design/mobile-first-responsive-design</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/custom-website-development</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/wordpress-development</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/nextjs-react-development</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/e-commerce-development</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/web-application-development</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/api-integration</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/speed-performance-optimization</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/web-development/website-maintenance-support</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/social-media-strategy</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/content-creation-design</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/social-media-management</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/paid-social-advertising</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/influencer-marketing</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/analytics-reporting</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/social-media-marketing/profile-optimization</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/seo-audit</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/on-page-seo</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/technical-seo</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/keyword-research-strategy</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/local-seo</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/link-building</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/e-commerce-seo</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.nexivostudio.io/services/seo/seo-content-writing</loc>
+  <lastmod>2026-06-27T20:20:08+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+</urlset>
