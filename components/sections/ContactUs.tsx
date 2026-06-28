@@ -7,13 +7,22 @@ import SectionLabel from '@/components/ui/SectionLabel';
 import GlassCard from '@/components/ui/GlassCard';
 import ContactForm from '@/components/ui/ContactForm';
 
-const contactInfo = [
+const offices = [
   {
-    Icon: MapPin,
-    label: 'Address',
-    value: '123 Digital Ave, Suite 400\nSan Francisco, CA 94105',
-    href: undefined,
+    flag: '🇺🇸',
+    region: 'North America',
+    city: 'California',
+    country: 'United States',
   },
+  {
+    flag: '🇵🇰',
+    region: 'South Asia',
+    city: 'Karachi',
+    country: 'Pakistan',
+  },
+];
+
+const contactInfo = [
   {
     Icon: Phone,
     label: 'Phone',
@@ -23,8 +32,8 @@ const contactInfo = [
   {
     Icon: Mail,
     label: 'Email',
-    value: 'hello@nexivostudio.com',
-    href: 'mailto:hello@nexivostudio.com',
+    value: 'info@nexivostudio.io',
+    href: 'mailto:info@nexivostudio.io',
   },
 ];
 
@@ -77,7 +86,35 @@ export default function ContactUs() {
                     We typically respond within 24 hours.
                   </p>
 
-                  <div className="space-y-6 mb-10">
+                  {/* Office locations */}
+                  <div className="mb-8">
+                    <div className="font-grotesk text-xs font-semibold text-white/40 uppercase tracking-wider mb-4 flex items-center gap-2">
+                      <MapPin size={12} className="text-brand-orange" />
+                      Our Offices
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      {offices.map(({ flag, region, city, country }) => (
+                        <div
+                          key={city}
+                          className="rounded-xl border border-white/8 bg-white/3 p-4 hover:border-brand-orange/30 hover:bg-white/5 transition-all duration-200"
+                        >
+                          <span className="text-2xl leading-none">{flag}</span>
+                          <p className="font-grotesk text-[10px] font-semibold text-brand-orange uppercase tracking-wider mt-2 mb-0.5">
+                            {region}
+                          </p>
+                          <p className="font-grotesk font-semibold text-sm text-brand-cream">
+                            {city}
+                          </p>
+                          <p className="font-bricolage text-xs text-white/40">
+                            {country}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Phone & Email */}
+                  <div className="space-y-5 mb-10">
                     {contactInfo.map(({ Icon, label, value, href }) => (
                       <div key={label} className="flex items-start gap-4">
                         <div className="w-10 h-10 rounded-xl bg-brand-orange/10 flex items-center justify-center shrink-0">
@@ -87,18 +124,12 @@ export default function ContactUs() {
                           <div className="font-grotesk text-xs font-semibold text-white/40 uppercase tracking-wider mb-1">
                             {label}
                           </div>
-                          {href ? (
-                            <a
-                              href={href}
-                              className="font-bricolage text-sm text-brand-cream/80 hover:text-brand-orange transition-colors leading-relaxed"
-                            >
-                              {value}
-                            </a>
-                          ) : (
-                            <p className="font-bricolage text-sm text-brand-cream/80 leading-relaxed whitespace-pre-line">
-                              {value}
-                            </p>
-                          )}
+                          <a
+                            href={href}
+                            className="font-bricolage text-sm text-brand-cream/80 hover:text-brand-orange transition-colors leading-relaxed"
+                          >
+                            {value}
+                          </a>
                         </div>
                       </div>
                     ))}

@@ -80,13 +80,25 @@ export default function Footer() {
               Contact
             </h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin size={15} className="text-brand-orange mt-0.5 shrink-0" />
-                <span className="font-bricolage text-sm text-white/50">
-                  123 Digital Ave, Suite 400
-                  <br />
-                  San Francisco, CA 94105
-                </span>
+              <li>
+                <p className="font-grotesk text-[10px] font-semibold text-brand-orange/70 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                  <MapPin size={11} className="text-brand-orange" />
+                  Our Offices
+                </p>
+                <div className="space-y-2 pl-0.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🇺🇸</span>
+                    <span className="font-bricolage text-sm text-white/50">
+                      California, United States
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🇵🇰</span>
+                    <span className="font-bricolage text-sm text-white/50">
+                      Karachi, Pakistan
+                    </span>
+                  </div>
+                </div>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={15} className="text-brand-orange shrink-0" />
@@ -100,10 +112,10 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Mail size={15} className="text-brand-orange shrink-0" />
                 <a
-                  href="mailto:hello@nexivostudio.com"
+                  href="mailto:info@nexivostudio.io"
                   className="font-bricolage text-sm text-white/50 hover:text-brand-orange transition-colors"
                 >
-                  hello@nexivostudio.com
+                  info@nexivostudio.io
                 </a>
               </li>
             </ul>
