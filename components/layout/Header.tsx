@@ -350,10 +350,9 @@ export default function Header() {
                       href={link.href}
                       onClick={closeMobile}
                       {...slideIn(i)}
-                      className="font-grotesk text-[15px] font-medium text-brand-cream/80 hover:text-brand-orange py-3.5 border-b border-white/6 transition-colors duration-200 flex items-center justify-between group"
+                      className="font-grotesk text-[15px] font-medium text-brand-cream/80 hover:text-brand-orange py-3.5 border-b border-white/6 transition-colors duration-200"
                     >
                       {link.label}
-                      <span className="text-white/20 group-hover:text-brand-orange/60 transition-colors duration-200 text-xs">â€º</span>
                     </motion.a>
                   )
                 )}
