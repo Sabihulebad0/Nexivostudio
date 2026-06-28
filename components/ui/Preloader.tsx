@@ -84,10 +84,10 @@ export default function Preloader() {
             <Image
               src="/logo_nexivo.png"
               alt="NexivoStudio"
-              width={210}
-              height={58}
+              width={315}
+              height={87}
               priority
-              className="h-14 w-auto"
+              className="h-[84px] w-auto"
             />
           </motion.div>
 
@@ -96,7 +96,7 @@ export default function Preloader() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.38, ease: EASE }}
-            className="mt-2.5 font-bricolage text-[10px] tracking-[0.32em] uppercase text-white/28"
+            className="mt-3 font-bricolage text-[15px] tracking-[0.32em] uppercase text-white/28"
           >
             Digital Agency
           </motion.p>
@@ -106,7 +106,7 @@ export default function Preloader() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5, ease: EASE }}
-            className="mt-14 flex flex-col items-center gap-3 w-[220px]"
+            className="mt-14 flex flex-col items-center gap-3 w-[300px]"
           >
             {/* Progress bar */}
             <div className="relative w-full h-[2px] bg-white/6 rounded-full overflow-visible">
@@ -132,10 +132,10 @@ export default function Preloader() {
 
             {/* Counter */}
             <div className="flex items-baseline gap-1">
-              <span className="font-grotesk text-[13px] font-semibold text-brand-orange/80 tabular-nums w-9 text-right">
+              <span className="font-grotesk text-[20px] font-semibold text-brand-orange/80 tabular-nums w-14 text-right">
                 {String(count).padStart(3, '0')}
               </span>
-              <span className="font-grotesk text-[10px] text-white/25">%</span>
+              <span className="font-grotesk text-[15px] text-white/25">%</span>
             </div>
           </motion.div>
         </motion.div>
