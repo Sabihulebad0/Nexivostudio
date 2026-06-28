@@ -43,3 +43,19 @@ export interface ServiceCategory {
   description: string;
   children: ServiceChild[];
 }
+
+export interface PricingPlan {
+  name: string;
+  price: string;
+  period?: string;
+  description: string;
+  features: string[];
+  highlighted?: boolean;
+  cta: string;
+}
+
+export interface ServicePricing {
+  service: string;
+  slug: string;
+  plans: PricingPlan[];
+}

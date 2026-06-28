@@ -1,13 +1,13 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { Palette, Code2, Share2, SearchCheck, type LucideIcon } from 'lucide-react';
+import { Palette, Code2, Share2, SearchCheck, Globe, Wrench, type LucideIcon } from 'lucide-react';
 import SectionLabel from '@/components/ui/SectionLabel';
 import GlassCard from '@/components/ui/GlassCard';
 import { SERVICE_CATEGORIES } from '@/lib/constants';
 import { gsap } from '@/lib/gsap';
 
-const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck };
+const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck, Globe, Wrench };
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -50,7 +50,7 @@ export default function Services() {
           </p>
         </div>
 
-        <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="services-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {SERVICE_CATEGORIES.map((cat) => {
             const Icon = iconMap[cat.icon] ?? Palette;
             return (

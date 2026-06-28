@@ -1,6 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import { useReCaptcha } from '@/hooks/useReCaptcha';
 import Button from './Button';
 
 interface ContactFormData {
@@ -15,6 +16,7 @@ const inputClass =
 const labelClass = 'block font-bricolage text-xs font-medium text-white/60 mb-1.5';
 
 export default function ContactForm() {
+  const { execute: executeRecaptcha } = useReCaptcha();
   const {
     register,
     handleSubmit,
@@ -25,10 +27,12 @@ export default function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
+      let recaptchaToken = '';
+      recaptchaToken = await executeRecaptcha('contact_form');
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, formType: 'contact' }),
+        body: JSON.stringify({ ...data, formType: 'contact', recaptchaToken }),
       });
       if (!res.ok) throw new Error('Server error');
       reset();

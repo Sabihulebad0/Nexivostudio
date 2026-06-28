@@ -6,6 +6,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { ModalProvider } from '@/context/ModalContext';
 import ScheduleCallModal from '@/components/ui/ScheduleCallModal';
+import PricingInquiryModal from '@/components/ui/PricingInquiryModal';
 
 const afacad = Afacad({
   subsets: ['latin'],
@@ -48,8 +49,16 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
           <ScheduleCallModal />
+          <PricingInquiryModal />
         </ModalProvider>
 
+        {/* Google reCAPTCHA Enterprise */}
+        <Script
+          src={`https://www.google.com/recaptcha/enterprise.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          strategy="afterInteractive"
+        />
+
+        {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-BCR6PX9DWW"
           strategy="afterInteractive"

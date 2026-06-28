@@ -113,14 +113,17 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="font-bricolage text-xs text-white/30">
-            &copy; 2024 NexivoStudio. All rights reserved.
+            &copy; {new Date().getFullYear()} NexivoStudio. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="font-bricolage text-xs text-white/30 hover:text-brand-orange transition-colors">
+            <a href="/privacy" className="font-bricolage text-xs text-white/30 hover:text-brand-orange transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="font-bricolage text-xs text-white/30 hover:text-brand-orange transition-colors">
+            <a href="/terms" className="font-bricolage text-xs text-white/30 hover:text-brand-orange transition-colors">
               Terms of Service
+            </a>
+            <a href="/refund" className="font-bricolage text-xs text-white/30 hover:text-brand-orange transition-colors">
+              Refund Policy
             </a>
           </div>
         </div>

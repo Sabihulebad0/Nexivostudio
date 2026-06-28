@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Calendar, Send, CheckCircle2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useReCaptcha } from '@/hooks/useReCaptcha';
 import { useModal } from '@/context/ModalContext';
 import { SERVICE_CATEGORIES } from '@/lib/constants';
 
@@ -27,6 +28,7 @@ const selectStyle = { backgroundColor: 'rgba(20,20,20,0.98)' };
 
 export default function ScheduleCallModal() {
   const { isScheduleOpen, closeSchedule } = useModal();
+  const { execute: executeRecaptcha } = useReCaptcha();
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const {
@@ -55,10 +57,12 @@ export default function ScheduleCallModal() {
   const onSubmit = async (data: FormData) => {
     setSubmitError('');
     try {
+      let recaptchaToken = '';
+      recaptchaToken = await executeRecaptcha('schedule_call');
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, formType: 'schedule-call' }),
+        body: JSON.stringify({ ...data, formType: 'schedule-call', recaptchaToken }),
       });
       if (!res.ok) throw new Error('Server error');
       setSubmitted(true);

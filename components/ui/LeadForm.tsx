@@ -1,6 +1,7 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
+import { useReCaptcha } from '@/hooks/useReCaptcha';
 import GlassCard from './GlassCard';
 import Button from './Button';
 
@@ -19,6 +20,7 @@ const inputClass =
 const labelClass = 'block font-bricolage text-xs font-medium text-white/60 mb-1.5';
 
 export default function LeadForm() {
+  const { execute: executeRecaptcha } = useReCaptcha();
   const {
     register,
     handleSubmit,
@@ -29,10 +31,12 @@ export default function LeadForm() {
 
   const onSubmit = async (data: LeadFormData) => {
     try {
+      let recaptchaToken = '';
+      recaptchaToken = await executeRecaptcha('lead_form');
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, formType: 'lead-form' }),
+        body: JSON.stringify({ ...data, formType: 'lead-form', recaptchaToken }),
       });
       if (!res.ok) throw new Error('Server error');
       reset();
@@ -143,9 +147,17 @@ export default function LeadForm() {
           />
           <label htmlFor="lead-terms" className="font-bricolage text-xs text-white/50 cursor-pointer leading-relaxed">
             I agree to the{' '}
-            <span className="text-brand-orange underline-offset-2 hover:underline">
-              Terms and Conditions
-            </span>
+            <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-brand-orange underline-offset-2 hover:underline">
+              Terms of Service
+            </a>
+            ,{' '}
+            <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-brand-orange underline-offset-2 hover:underline">
+              Privacy Policy
+            </a>
+            {' '}and{' '}
+            <a href="/refund" target="_blank" rel="noopener noreferrer" className="text-brand-orange underline-offset-2 hover:underline">
+              Refund Policy
+            </a>
           </label>
         </div>
         {errors.terms && (

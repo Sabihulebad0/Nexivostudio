@@ -61,7 +61,51 @@ function buildHtml(title: string, subtitle: string, rows: string) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { formType, name, email, phone, service, budget, message } = body;
+    const { formType, name, email, phone, service, budget, message, plan, price, period, recaptchaToken } = body;
+
+    // reCAPTCHA Enterprise verification
+    if (process.env.RECAPTCHA_API_KEY && process.env.RECAPTCHA_PROJECT_ID) {
+      if (!recaptchaToken) {
+        return NextResponse.json({ error: 'reCAPTCHA token missing' }, { status: 400 });
+      }
+
+      // Map form type to the expected action name (must match what the client sent)
+      const actionMap: Record<string, string> = {
+        'lead-form':       'lead_form',
+        'contact':         'contact_form',
+        'schedule-call':   'schedule_call',
+        'pricing-inquiry': 'pricing_inquiry',
+      };
+      const expectedAction = actionMap[formType] ?? formType;
+
+      const assessmentRes = await fetch(
+        `https://recaptchaenterprise.googleapis.com/v1/projects/${process.env.RECAPTCHA_PROJECT_ID}/assessments?key=${process.env.RECAPTCHA_API_KEY}`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event: {
+              token: recaptchaToken,
+              expectedAction,
+              siteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+            },
+          }),
+        }
+      );
+
+      const assessment = await assessmentRes.json() as {
+        tokenProperties?: { valid: boolean; action: string };
+        riskAnalysis?: { score: number };
+      };
+
+      const valid = assessment.tokenProperties?.valid === true;
+      const score = assessment.riskAnalysis?.score ?? 0;
+
+      if (!valid || score < 0.5) {
+        console.warn('[recaptcha] Blocked — valid:', valid, 'score:', score);
+        return NextResponse.json({ error: 'reCAPTCHA verification failed' }, { status: 400 });
+      }
+    }
 
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
       console.error('[contact] Missing SMTP credentials in .env.local');
@@ -112,6 +156,18 @@ export async function POST(req: Request) {
         field('Full Name', name) +
         field('Email', email) +
         field('Message', message)
+      );
+    } else if (formType === 'pricing-inquiry') {
+      subject = `💰 Pricing Inquiry: ${plan} Plan (${service}) from ${name}`;
+      html = buildHtml(
+        'New Pricing Inquiry',
+        `Someone is interested in the ${plan} plan for ${service}.`,
+        field('Full Name', name) +
+        field('Email', email) +
+        field('Phone', phone) +
+        field('Service', service) +
+        field('Selected Plan', `${plan} — ${price}${period ? ` ${period}` : ''}`) +
+        field('Notes', message)
       );
     } else {
       subject = `📩 New Website Inquiry from ${name ?? 'Unknown'}`;

@@ -14,56 +14,104 @@ const headlineSegments = [
   { words: ['That', 'Drive', 'Growth'], orange: false },
 ];
 
+const statsData = [
+  { value: 150, suffix: '+', label: 'Projects Delivered' },
+  { value: 50,  suffix: '+', label: 'Happy Clients' },
+  { value: 5,   suffix: '+', label: 'Years of Experience' },
+];
+
+// Fixed particle positions to avoid hydration mismatch
+const PARTICLES = [
+  { left: 6,  top: 18, size: 2, delay: 0,   dur: 7  },
+  { left: 14, top: 55, size: 3, delay: 1.4, dur: 9  },
+  { left: 22, top: 78, size: 2, delay: 2.8, dur: 6  },
+  { left: 30, top: 30, size: 1, delay: 0.6, dur: 8  },
+  { left: 40, top: 65, size: 3, delay: 3.2, dur: 7  },
+  { left: 50, top: 12, size: 2, delay: 1.9, dur: 9  },
+  { left: 58, top: 48, size: 1, delay: 0.3, dur: 6  },
+  { left: 67, top: 82, size: 2, delay: 2.1, dur: 8  },
+  { left: 75, top: 22, size: 3, delay: 3.7, dur: 7  },
+  { left: 83, top: 60, size: 2, delay: 1.1, dur: 9  },
+  { left: 90, top: 38, size: 1, delay: 4.2, dur: 6  },
+  { left: 11, top: 40, size: 2, delay: 2.5, dur: 8  },
+  { left: 46, top: 88, size: 1, delay: 0.9, dur: 7  },
+  { left: 62, top: 10, size: 3, delay: 3.0, dur: 9  },
+  { left: 78, top: 72, size: 2, delay: 1.6, dur: 6  },
+];
+
 export default function Hero() {
   const { openSchedule } = useModal();
-  const sectionRef = useRef<HTMLElement>(null);
-  const blob1Ref = useRef<HTMLDivElement>(null);
-  const blob2Ref = useRef<HTMLDivElement>(null);
-  const blob3Ref = useRef<HTMLDivElement>(null);
+  const sectionRef  = useRef<HTMLElement>(null);
+  const blob1Ref    = useRef<HTMLDivElement>(null);
+  const blob2Ref    = useRef<HTMLDivElement>(null);
+  const blob3Ref    = useRef<HTMLDivElement>(null);
+  const blob4Ref    = useRef<HTMLDivElement>(null);
+  const ringRef     = useRef<HTMLDivElement>(null);
+  const counterRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ── Blob breathing ────────────────────────────────────────────────────
-      gsap.to(blob1Ref.current, {
-        scale: 1.18, opacity: 0.22, duration: 8,
-        repeat: -1, yoyo: true, ease: 'sine.inOut',
-      });
-      gsap.to(blob2Ref.current, {
-        scale: 1.25, opacity: 0.14, duration: 10,
-        repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2,
-      });
-      gsap.to(blob3Ref.current, {
-        scale: 1.1, opacity: 0.09, duration: 12,
-        repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 4,
-      });
 
-      // ── Masked word reveal ────────────────────────────────────────────────
+      // ── Blob animations ──────────────────────────────────────────────────
+      gsap.to(blob1Ref.current, { scale: 1.22, opacity: 0.22, duration: 8,  repeat: -1, yoyo: true, ease: 'sine.inOut' });
+      gsap.to(blob2Ref.current, { scale: 1.30, opacity: 0.14, duration: 11, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 2 });
+      gsap.to(blob3Ref.current, { scale: 1.15, opacity: 0.09, duration: 13, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 4 });
+      gsap.to(blob4Ref.current, { scale: 1.18, opacity: 0.11, duration: 9,  repeat: -1, yoyo: true, ease: 'sine.inOut', delay: 1.5 });
+
+      // ── Slow-spin decorative ring ────────────────────────────────────────
+      gsap.to(ringRef.current, { rotation: 360, duration: 40, repeat: -1, ease: 'none' });
+
+      // ── Masked word reveal ───────────────────────────────────────────────
       gsap.from('.gsap-word', {
-        y: '105%',
-        duration: 0.85,
+        y: '110%',
+        duration: 0.9,
         stagger: 0.07,
         ease: 'power4.out',
         delay: 0.1,
       });
 
-      // ── Content stagger ───────────────────────────────────────────────────
-      gsap.from(['.hero-label', '.hero-sub', '.hero-buttons', '.hero-stats'], {
-        y: 28,
+      // ── Content stagger ──────────────────────────────────────────────────
+      gsap.from(['.hero-label', '.hero-sub', '.hero-buttons'], {
+        y: 30,
         opacity: 0,
-        duration: 0.7,
+        duration: 0.75,
         stagger: 0.13,
-        ease: 'power2.out',
+        ease: 'power3.out',
         delay: 0.55,
       });
 
-      // ── Form slide in ─────────────────────────────────────────────────────
+      // ── Form slide in ────────────────────────────────────────────────────
       gsap.from('.hero-form', {
-        x: 60,
+        x: 70,
         opacity: 0,
-        duration: 0.9,
+        duration: 1,
         ease: 'power3.out',
         delay: 0.2,
       });
+
+      // ── Stat counters ────────────────────────────────────────────────────
+      counterRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const { value, suffix } = statsData[i];
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: value,
+          duration: 2.2,
+          delay: 0.85,
+          ease: 'power2.out',
+          onUpdate() { el.textContent = Math.round(obj.val) + suffix; },
+        });
+      });
+
+      // ── Stats row fade in ────────────────────────────────────────────────
+      gsap.from('.hero-stats', {
+        y: 28,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power2.out',
+        delay: 0.82,
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();
@@ -75,8 +123,9 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center pt-20 pb-16 overflow-hidden"
     >
-      {/* ── Background ──────────────────────────────────────────────────────── */}
+      {/* ── Background ──────────────────────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
+
         {/* Dot grid */}
         <div
           className="absolute inset-0 opacity-[0.18]"
@@ -86,30 +135,55 @@ export default function Hero() {
           }}
         />
 
+        {/* Floating particles */}
+        {PARTICLES.map((p, i) => (
+          <div
+            key={i}
+            className="absolute rounded-full bg-brand-orange"
+            style={{
+              left: `${p.left}%`,
+              top: `${p.top}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
+              animation: `float-particle ${p.dur}s ${p.delay}s infinite ease-in-out`,
+            }}
+          />
+        ))}
+
         {/* Blobs */}
         <div ref={blob1Ref} style={{ opacity: 0.13 }}
-          className="absolute -top-32 -left-24 w-[640px] h-[640px] bg-brand-orange rounded-full blur-[130px]"
+          className="absolute -top-32 -left-24 w-[680px] h-[680px] bg-brand-orange rounded-full blur-[130px]"
         />
         <div ref={blob2Ref} style={{ opacity: 0.07 }}
-          className="absolute bottom-0 right-0 w-[480px] h-[480px] bg-orange-500 rounded-full blur-[110px]"
+          className="absolute bottom-0 right-0 w-[520px] h-[520px] bg-orange-500 rounded-full blur-[110px]"
         />
         <div ref={blob3Ref} style={{ opacity: 0.04 }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-brand-orange rounded-full blur-[140px]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[400px] bg-brand-orange rounded-full blur-[150px]"
+        />
+        <div ref={blob4Ref} style={{ opacity: 0.08 }}
+          className="absolute top-10 right-[15%] w-[340px] h-[340px] bg-orange-400 rounded-full blur-[100px]"
         />
 
         {/* Decorative rings */}
-        <div className="absolute -left-40 top-1/2 -translate-y-1/2 w-[520px] h-[520px] rounded-full opacity-[0.18]"
-          style={{ border: '1.5px solid #FF6A1C' }} />
-        <div className="absolute right-[12%] top-[10%] w-52 h-52 rounded-full opacity-[0.22]"
-          style={{ border: '1px solid #FF6A1C' }} />
-        <div className="absolute right-[22%] bottom-[15%] w-24 h-24 rounded-full opacity-[0.15]"
-          style={{ border: '1px solid rgba(255,250,243,0.6)' }} />
+        <div
+          ref={ringRef}
+          className="absolute -left-48 top-1/2 -translate-y-1/2 w-[560px] h-[560px] rounded-full opacity-[0.14]"
+          style={{ border: '1.5px solid #FF6A1C' }}
+        />
+        <div
+          className="absolute right-[10%] top-[8%] w-56 h-56 rounded-full opacity-[0.18]"
+          style={{ border: '1px solid #FF6A1C', animation: 'spin-slow 60s linear infinite reverse' }}
+        />
+        <div
+          className="absolute right-[20%] bottom-[12%] w-28 h-28 rounded-full opacity-[0.12]"
+          style={{ border: '1px solid rgba(255,250,243,0.5)' }}
+        />
 
         {/* Edge vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_110%_90%_at_50%_50%,transparent_55%,#0d0d0d_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_110%_90%_at_50%_50%,transparent_50%,#0d0d0d_100%)]" />
       </div>
 
-      {/* ── Content ─────────────────────────────────────────────────────────── */}
+      {/* ── Content ─────────────────────────────────────────────────────── */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -149,14 +223,15 @@ export default function Hero() {
               </Button>
             </div>
 
+            {/* Stats */}
             <div className="hero-stats flex gap-8 mt-12 pt-10 border-t border-white/8">
-              {[
-                { value: '150+', label: 'Projects Delivered' },
-                { value: '50+', label: 'Happy Clients' },
-                { value: '5+', label: 'Years of Experience' },
-              ].map((stat) => (
+              {statsData.map((stat, i) => (
                 <div key={stat.label}>
-                  <div className="font-grotesk font-bold text-2xl text-brand-orange">{stat.value}</div>
+                  <div className="font-grotesk font-bold text-2xl text-brand-orange">
+                    <span ref={(el) => { counterRefs.current[i] = el; }}>
+                      0{stat.suffix}
+                    </span>
+                  </div>
                   <div className="font-bricolage text-xs text-white/45 mt-0.5">{stat.label}</div>
                 </div>
               ))}
@@ -167,6 +242,7 @@ export default function Hero() {
           <div className="hero-form pt-8 lg:pt-12">
             <LeadForm />
           </div>
+
         </div>
       </div>
     </section>

@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Palette, Code2, Share2, SearchCheck, type LucideIcon } from 'lucide-react';
+import { ChevronRight, Palette, Code2, Share2, SearchCheck, Globe, Wrench, type LucideIcon } from 'lucide-react';
 import SectionLabel from '@/components/ui/SectionLabel';
 import { gsap } from '@/lib/gsap';
 import type { ServiceCategory } from '@/types';
 
-const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck };
+const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck, Globe, Wrench };
 
 interface Props {
   service: ServiceCategory;

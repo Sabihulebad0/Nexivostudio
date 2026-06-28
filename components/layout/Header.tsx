@@ -3,13 +3,13 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Palette, Code2, Share2, SearchCheck, type LucideIcon } from 'lucide-react';
+import { Menu, X, ChevronDown, Palette, Code2, Share2, SearchCheck, Globe, Wrench, type LucideIcon } from 'lucide-react';
 import { NAV_LINKS, SERVICE_CATEGORIES } from '@/lib/constants';
 import { toSlug } from '@/lib/utils';
 import { useModal } from '@/context/ModalContext';
 import Button from '@/components/ui/Button';
 
-const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck };
+const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck, Globe, Wrench };
 
 export default function Header() {
   const { openSchedule } = useModal();
@@ -47,7 +47,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#home" className="shrink-0">
+            <a href="/" className="shrink-0">
               <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} priority className="h-11 w-auto" />
             </a>
 
@@ -61,13 +61,16 @@ export default function Header() {
                     onMouseEnter={openServices}
                     onMouseLeave={scheduleClose}
                   >
-                    <button className="font-grotesk text-sm text-brand-cream/70 hover:text-brand-orange transition-colors duration-200 flex items-center gap-1">
+                    <a
+                      href="/services"
+                      className="font-grotesk text-sm text-brand-cream/70 hover:text-brand-orange transition-colors duration-200 flex items-center gap-1"
+                    >
                       Services
                       <ChevronDown
                         size={13}
                         className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180 text-brand-orange' : ''}`}
                       />
-                    </button>
+                    </a>
                   </div>
                 ) : (
                   <a
@@ -114,9 +117,9 @@ export default function Header() {
               transition={{ duration: 0.2, ease: 'easeOut' }}
               className="absolute top-full left-0 right-0 hidden md:block"
             >
-              <div className="bg-[#141414] border-t-2 border-brand-orange border-b border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.85)]">
+              <div className="bg-[#141414] border-t-2 border-brand-orange border-b border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.85)] max-h-[calc(100vh-72px)] overflow-y-auto">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                  <div className="grid grid-cols-4 gap-10">
+                  <div className="grid grid-cols-3 gap-8">
                     {SERVICE_CATEGORIES.map((cat) => {
                       const Icon = iconMap[cat.icon] ?? Palette;
                       return (
