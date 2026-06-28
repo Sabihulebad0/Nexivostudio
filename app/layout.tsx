@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import { ModalProvider } from '@/context/ModalContext';
 import ScheduleCallModal from '@/components/ui/ScheduleCallModal';
 import PricingInquiryModal from '@/components/ui/PricingInquiryModal';
+import Preloader from '@/components/ui/Preloader';
 
 const afacad = Afacad({
   subsets: ['latin'],
@@ -44,6 +45,7 @@ export default function RootLayout({
       className={`${afacad.variable} ${quicksand.variable}`}
     >
       <body className="min-h-screen bg-brand-bg text-brand-cream antialiased font-bricolage">
+        <Preloader />
         <ModalProvider>
           <Header />
           <main>{children}</main>
