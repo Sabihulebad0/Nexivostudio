@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -11,13 +11,15 @@ import Button from '@/components/ui/Button';
 
 const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck, Globe, Wrench };
 
-/* ── Animated 3-line hamburger ─────────────────────────────────────────────── */
+const EASE: [number, number, number, number] = [0.23, 1, 0.32, 1];
+
+/* â”€â”€ Animated 3-line hamburger â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
   return (
     <div className="flex flex-col justify-between w-[18px] h-[13px]">
       <motion.span
         animate={isOpen ? { rotate: 45, y: 5.5 } : { rotate: 0, y: 0 }}
-        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+        transition={{ duration: 0.35, ease: EASE }}
         className="block h-[2px] w-full rounded-full bg-current origin-center"
       />
       <motion.span
@@ -27,22 +29,19 @@ function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
       />
       <motion.span
         animate={isOpen ? { rotate: -45, y: -5.5 } : { rotate: 0, y: 0 }}
-        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+        transition={{ duration: 0.35, ease: EASE }}
         className="block h-[2px] w-full rounded-full bg-current origin-center"
       />
     </div>
   );
 }
 
-/* ── Drawer nav item variants ───────────────────────────────────────────────── */
-const itemVariants = {
-  hidden: { x: 32, opacity: 0 },
-  visible: (i: number) => ({
-    x: 0,
-    opacity: 1,
-    transition: { duration: 0.38, ease: [0.23, 1, 0.32, 1], delay: 0.06 + i * 0.055 },
-  }),
-};
+/* â”€â”€ Per-item slide-in transition â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+const slideIn = (i: number) => ({
+  initial: { x: 32, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+  transition: { duration: 0.38, ease: EASE, delay: 0.06 + i * 0.055 },
+});
 
 export default function Header() {
   const { openSchedule } = useModal();
@@ -156,7 +155,7 @@ export default function Header() {
           </div>
         </div>
 
-        {/* ── Desktop Mega Menu ─────────────────────────────────────────────── */}
+        {/* â”€â”€ Desktop Mega Menu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
         <AnimatePresence>
           {servicesOpen && (
             <motion.div
@@ -214,7 +213,7 @@ export default function Header() {
         </AnimatePresence>
       </header>
 
-      {/* ── Mobile Drawer ──────────────────────────────────────────────────────── */}
+      {/* â”€â”€ Mobile Drawer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -263,10 +262,7 @@ export default function Header() {
                     /* Services accordion */
                     <motion.div
                       key="services-mobile"
-                      custom={i}
-                      variants={itemVariants}
-                      initial="hidden"
-                      animate="visible"
+                      {...slideIn(i)}
                     >
                       {/* Accordion trigger */}
                       <button
@@ -340,7 +336,7 @@ export default function Header() {
                                 className="flex items-center gap-2 px-2 py-2 mt-1 rounded-lg border border-brand-orange/20 bg-brand-orange/5 hover:bg-brand-orange/10 transition-colors duration-200 group/all"
                               >
                                 <span className="font-grotesk text-xs font-semibold text-brand-orange">
-                                  View All Services →
+                                  View All Services â†’
                                 </span>
                               </a>
                             </div>
@@ -353,14 +349,11 @@ export default function Header() {
                       key={link.label}
                       href={link.href}
                       onClick={closeMobile}
-                      custom={i}
-                      variants={itemVariants}
-                      initial="hidden"
-                      animate="visible"
+                      {...slideIn(i)}
                       className="font-grotesk text-[15px] font-medium text-brand-cream/80 hover:text-brand-orange py-3.5 border-b border-white/6 transition-colors duration-200 flex items-center justify-between group"
                     >
                       {link.label}
-                      <span className="text-white/20 group-hover:text-brand-orange/60 transition-colors duration-200 text-xs">›</span>
+                      <span className="text-white/20 group-hover:text-brand-orange/60 transition-colors duration-200 text-xs">â€º</span>
                     </motion.a>
                   )
                 )}
@@ -370,10 +363,7 @@ export default function Header() {
 
                 {/* CTA buttons */}
                 <motion.div
-                  custom={NAV_LINKS.length + 1}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
+                  {...slideIn(NAV_LINKS.length + 1)}
                   className="flex flex-col gap-3"
                 >
                   <button
@@ -393,10 +383,7 @@ export default function Header() {
 
                 {/* Bottom contact strip */}
                 <motion.div
-                  custom={NAV_LINKS.length + 2}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
+                  {...slideIn(NAV_LINKS.length + 2)}
                   className="mt-auto pt-6 flex flex-col gap-1"
                 >
                   <p className="font-bricolage text-[10px] text-white/25 uppercase tracking-widest mb-1">
@@ -417,3 +404,4 @@ export default function Header() {
     </>
   );
 }
+
