@@ -28,6 +28,10 @@ export const metadata: Metadata = {
     'NexivoStudio is a full-service digital agency specializing in web design, web development, SEO, and social media marketing. We build digital experiences that drive growth.',
   keywords: ['digital agency', 'web design', 'web development', 'SEO', 'social media marketing'],
   authors: [{ name: 'NexivoStudio' }],
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
 };
 
 export const viewport: Viewport = {
