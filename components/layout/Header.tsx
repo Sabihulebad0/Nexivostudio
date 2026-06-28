@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Palette, Code2, Share2, SearchCheck, Globe, Wrench, type LucideIcon } from 'lucide-react';
+import { ChevronDown, Palette, Code2, Share2, SearchCheck, Globe, Wrench, type LucideIcon } from 'lucide-react';
 import { NAV_LINKS, SERVICE_CATEGORIES } from '@/lib/constants';
 import { toSlug } from '@/lib/utils';
 import { useModal } from '@/context/ModalContext';
@@ -11,11 +11,45 @@ import Button from '@/components/ui/Button';
 
 const iconMap: Record<string, LucideIcon> = { Palette, Code2, Share2, SearchCheck, Globe, Wrench };
 
+/* ── Animated 3-line hamburger ─────────────────────────────────────────────── */
+function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
+  return (
+    <div className="flex flex-col justify-between w-[18px] h-[13px]">
+      <motion.span
+        animate={isOpen ? { rotate: 45, y: 5.5 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+        className="block h-[2px] w-full rounded-full bg-current origin-center"
+      />
+      <motion.span
+        animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+        transition={{ duration: 0.2 }}
+        className="block h-[2px] w-full rounded-full bg-current"
+      />
+      <motion.span
+        animate={isOpen ? { rotate: -45, y: -5.5 } : { rotate: 0, y: 0 }}
+        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+        className="block h-[2px] w-full rounded-full bg-current origin-center"
+      />
+    </div>
+  );
+}
+
+/* ── Drawer nav item variants ───────────────────────────────────────────────── */
+const itemVariants = {
+  hidden: { x: 32, opacity: 0 },
+  visible: (i: number) => ({
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.38, ease: [0.23, 1, 0.32, 1], delay: 0.06 + i * 0.055 },
+  }),
+};
+
 export default function Header() {
   const { openSchedule } = useModal();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
@@ -24,16 +58,19 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const openServices = () => {
-    clearTimeout(closeTimer.current);
-    setServicesOpen(true);
-  };
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
 
-  const scheduleClose = () => {
-    closeTimer.current = setTimeout(() => setServicesOpen(false), 120);
-  };
+  const openServices = () => { clearTimeout(closeTimer.current); setServicesOpen(true); };
+  const scheduleClose = () => { closeTimer.current = setTimeout(() => setServicesOpen(false), 120); };
 
-  const closeMobile = () => setMobileOpen(false);
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setMobileServicesOpen(false);
+  };
 
   return (
     <>
@@ -95,17 +132,31 @@ export default function Header() {
             </div>
 
             {/* Mobile Hamburger */}
-            <button
+            <motion.button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="md:hidden p-2 text-brand-cream/70 hover:text-brand-orange transition-colors"
+              whileTap={{ scale: 0.92 }}
+              className={`md:hidden relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                mobileOpen
+                  ? 'bg-brand-orange text-brand-cream shadow-lg shadow-brand-orange/40'
+                  : 'bg-white/6 border border-white/12 text-brand-cream/80 hover:bg-white/10 hover:border-brand-orange/30 hover:text-brand-orange'
+              }`}
               aria-label="Toggle menu"
             >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+              {/* Glow ring when open */}
+              {mobileOpen && (
+                <motion.span
+                  layoutId="hamburger-glow"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="absolute inset-0 rounded-xl ring-2 ring-brand-orange/40"
+                />
+              )}
+              <HamburgerIcon isOpen={mobileOpen} />
+            </motion.button>
           </div>
         </div>
 
-        {/* ── Mega Menu ──────────────────────────────────────────────────────── */}
+        {/* ── Desktop Mega Menu ─────────────────────────────────────────────── */}
         <AnimatePresence>
           {servicesOpen && (
             <motion.div
@@ -124,7 +175,6 @@ export default function Header() {
                       const Icon = iconMap[cat.icon] ?? Palette;
                       return (
                         <div key={cat.title}>
-                          {/* Column header */}
                           <a
                             href={`/services/${cat.slug}`}
                             onClick={() => setServicesOpen(false)}
@@ -137,8 +187,6 @@ export default function Header() {
                               {cat.title}
                             </span>
                           </a>
-
-                          {/* Child links — sliding orange dash on hover */}
                           <ul className="flex flex-col gap-0.5">
                             {cat.children.map((child) => (
                               <li key={child.title}>
@@ -147,9 +195,7 @@ export default function Header() {
                                   onClick={() => setServicesOpen(false)}
                                   className="group relative flex items-center py-[5px] overflow-hidden"
                                 >
-                                  {/* Orange dash — grows from 0 to 10px */}
                                   <span className="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-0 bg-brand-orange rounded-full group-hover:w-2.5 transition-all duration-300 ease-out" />
-                                  {/* Text — slides right, brightens */}
                                   <span className="font-bricolage text-[13px] text-white/50 group-hover:text-brand-cream leading-snug pl-0 group-hover:pl-4 transition-all duration-300 ease-out">
                                     {child.title}
                                   </span>
@@ -168,54 +214,201 @@ export default function Header() {
         </AnimatePresence>
       </header>
 
-      {/* Mobile Menu Drawer */}
+      {/* ── Mobile Drawer ──────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {mobileOpen && (
           <>
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.25 }}
               onClick={closeMobile}
-              className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden"
             />
+
+            {/* Drawer */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-72 bg-[#111111] border-l border-white/10 md:hidden flex flex-col overflow-y-auto"
+              transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+              className="fixed top-0 right-0 bottom-0 z-50 w-[300px] md:hidden flex flex-col"
+              style={{
+                background: 'linear-gradient(160deg, #161616 0%, #111111 100%)',
+                borderLeft: '1px solid rgba(255,255,255,0.07)',
+              }}
             >
-              <div className="flex items-center justify-between px-6 h-16 shrink-0">
-                <Image src="/logo_nexivo.png" alt="NexivoStudio" width={140} height={40} className="h-10 w-auto" />
-                <button
+              {/* Orange top accent */}
+              <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-brand-orange to-transparent" />
+
+              {/* Header row */}
+              <div className="flex items-center justify-between px-5 h-16 shrink-0 border-b border-white/6">
+                <Image src="/logo_nexivo.png" alt="NexivoStudio" width={130} height={36} className="h-9 w-auto" />
+                <motion.button
                   onClick={closeMobile}
-                  className="p-2 text-brand-cream/60 hover:text-brand-orange transition-colors"
+                  whileTap={{ scale: 0.9 }}
+                  className="w-8 h-8 rounded-lg bg-white/6 hover:bg-white/12 flex items-center justify-center text-white/50 hover:text-white transition-all duration-200"
                   aria-label="Close menu"
                 >
-                  <X size={20} />
-                </button>
+                  <HamburgerIcon isOpen={true} />
+                </motion.button>
               </div>
-              <nav className="flex flex-col px-6 pt-4 gap-1 flex-1">
-                {NAV_LINKS.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={closeMobile}
-                    className="font-grotesk text-base text-brand-cream/80 hover:text-brand-orange py-3 border-b border-white/8 transition-colors duration-200"
+
+              {/* Nav links */}
+              <nav className="flex flex-col flex-1 overflow-y-auto px-4 pt-3 pb-6">
+                {NAV_LINKS.map((link, i) =>
+                  link.label === 'Services' ? (
+                    /* Services accordion */
+                    <motion.div
+                      key="services-mobile"
+                      custom={i}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      {/* Accordion trigger */}
+                      <button
+                        onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                        className="w-full flex items-center justify-between py-3.5 border-b border-white/6 group"
+                      >
+                        <span className={`font-grotesk text-[15px] font-medium transition-colors duration-200 ${mobileServicesOpen ? 'text-brand-orange' : 'text-brand-cream/80 group-hover:text-brand-orange'}`}>
+                          Services
+                        </span>
+                        <motion.div
+                          animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
+                          transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+                          className={`transition-colors duration-200 ${mobileServicesOpen ? 'text-brand-orange' : 'text-white/40 group-hover:text-brand-orange'}`}
+                        >
+                          <ChevronDown size={16} />
+                        </motion.div>
+                      </button>
+
+                      {/* Accordion content */}
+                      <AnimatePresence initial={false}>
+                        {mobileServicesOpen && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <div className="pt-2 pb-1 space-y-4">
+                              {SERVICE_CATEGORIES.map((cat) => {
+                                const Icon = iconMap[cat.icon] ?? Palette;
+                                return (
+                                  <div key={cat.slug}>
+                                    {/* Category header */}
+                                    <a
+                                      href={`/services/${cat.slug}`}
+                                      onClick={closeMobile}
+                                      className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/4 transition-colors duration-200 group/cat"
+                                    >
+                                      <div className="w-6 h-6 rounded-md bg-brand-orange/15 border border-brand-orange/20 flex items-center justify-center shrink-0">
+                                        <Icon size={12} className="text-brand-orange" />
+                                      </div>
+                                      <span className="font-grotesk text-sm font-semibold text-brand-orange group-hover/cat:text-brand-orange/80 transition-colors">
+                                        {cat.title}
+                                      </span>
+                                    </a>
+
+                                    {/* Child links */}
+                                    <ul className="mt-1 pl-[34px] space-y-0.5">
+                                      {cat.children.map((child) => (
+                                        <li key={child.title}>
+                                          <a
+                                            href={`/services/${cat.slug}/${toSlug(child.title)}`}
+                                            onClick={closeMobile}
+                                            className="flex items-center gap-2 py-1 font-bricolage text-xs text-white/45 hover:text-brand-cream transition-colors duration-200 group/child"
+                                          >
+                                            <span className="w-1 h-1 rounded-full bg-white/20 group-hover/child:bg-brand-orange shrink-0 transition-colors duration-200" />
+                                            {child.title}
+                                          </a>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                );
+                              })}
+
+                              {/* View all services link */}
+                              <a
+                                href="/services"
+                                onClick={closeMobile}
+                                className="flex items-center gap-2 px-2 py-2 mt-1 rounded-lg border border-brand-orange/20 bg-brand-orange/5 hover:bg-brand-orange/10 transition-colors duration-200 group/all"
+                              >
+                                <span className="font-grotesk text-xs font-semibold text-brand-orange">
+                                  View All Services →
+                                </span>
+                              </a>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  ) : (
+                    <motion.a
+                      key={link.label}
+                      href={link.href}
+                      onClick={closeMobile}
+                      custom={i}
+                      variants={itemVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="font-grotesk text-[15px] font-medium text-brand-cream/80 hover:text-brand-orange py-3.5 border-b border-white/6 transition-colors duration-200 flex items-center justify-between group"
+                    >
+                      {link.label}
+                      <span className="text-white/20 group-hover:text-brand-orange/60 transition-colors duration-200 text-xs">›</span>
+                    </motion.a>
+                  )
+                )}
+
+                {/* Divider */}
+                <div className="h-px bg-white/6 my-5" />
+
+                {/* CTA buttons */}
+                <motion.div
+                  custom={NAV_LINKS.length + 1}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="flex flex-col gap-3"
+                >
+                  <button
+                    onClick={() => { closeMobile(); openSchedule(); }}
+                    className="w-full py-3 rounded-full font-grotesk font-semibold text-sm text-brand-cream bg-white/6 border border-white/12 hover:bg-white/10 hover:border-white/20 transition-all duration-200"
                   >
-                    {link.label}
-                  </a>
-                ))}
-                <div className="flex flex-col gap-3 mt-8">
-                  <Button variant="ghost" className="w-full justify-center">
                     Schedule a Call
-                  </Button>
-                  <Button variant="primary" className="w-full justify-center">
+                  </button>
+                  <a
+                    href="/contact"
+                    onClick={closeMobile}
+                    className="w-full py-3 rounded-full font-grotesk font-semibold text-sm text-brand-cream bg-brand-orange hover:brightness-110 transition-all duration-200 text-center"
+                  >
                     Contact Us
-                  </Button>
-                </div>
+                  </a>
+                </motion.div>
+
+                {/* Bottom contact strip */}
+                <motion.div
+                  custom={NAV_LINKS.length + 2}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="mt-auto pt-6 flex flex-col gap-1"
+                >
+                  <p className="font-bricolage text-[10px] text-white/25 uppercase tracking-widest mb-1">
+                    Get in touch
+                  </p>
+                  <a
+                    href="mailto:info@nexivostudio.io"
+                    className="font-bricolage text-xs text-white/45 hover:text-brand-orange transition-colors duration-200"
+                  >
+                    info@nexivostudio.io
+                  </a>
+                </motion.div>
               </nav>
             </motion.div>
           </>
