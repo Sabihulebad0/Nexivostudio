@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Column 1 — Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="mb-3">
-              <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} className="h-11 w-auto" />
+              <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} sizes="160px" className="h-11 w-auto" />
             </div>
             <p className="font-bricolage text-sm text-white/50 leading-relaxed mb-6 max-w-xs">
               We craft digital experiences that grow brands, drive traffic, and convert visitors

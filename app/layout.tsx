@@ -8,6 +8,7 @@ import { ModalProvider } from '@/context/ModalContext';
 import ScheduleCallModal from '@/components/ui/ScheduleCallModal';
 import PricingInquiryModal from '@/components/ui/PricingInquiryModal';
 import Preloader from '@/components/ui/Preloader';
+import PromoBanner from '@/components/ui/PromoBanner';
 
 const afacad = Afacad({
   subsets: ['latin'],
@@ -56,6 +57,7 @@ export default function RootLayout({
           <Footer />
           <ScheduleCallModal />
           <PricingInquiryModal />
+          <PromoBanner />
         </ModalProvider>
 
         {/* Google reCAPTCHA Enterprise */}

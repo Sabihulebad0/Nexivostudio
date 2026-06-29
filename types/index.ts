@@ -12,7 +12,8 @@ export interface PortfolioItem {
   title: string;
   category: string;
   tag: string;
-  image: string;
+  image: string;       // Tailwind gradient fallback (e.g. "from-purple-600 to-blue-500")
+  imageSrc?: string;   // Real image path (e.g. "/portfolio/project-1.webp")
 }
 
 export interface NavLink {

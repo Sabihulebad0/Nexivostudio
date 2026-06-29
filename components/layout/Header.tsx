@@ -84,7 +84,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <a href="/" className="shrink-0">
-              <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} priority className="h-11 w-auto" />
+              <Image src="/logo_nexivo.png" alt="NexivoStudio" width={160} height={44} priority sizes="160px" className="h-11 w-auto" />
             </a>
 
             {/* Desktop Nav */}
@@ -244,7 +244,7 @@ export default function Header() {
 
               {/* Header row */}
               <div className="flex items-center justify-between px-5 h-16 shrink-0 border-b border-white/6">
-                <Image src="/logo_nexivo.png" alt="NexivoStudio" width={130} height={36} className="h-9 w-auto" />
+                <Image src="/logo_nexivo.png" alt="NexivoStudio" width={130} height={36} sizes="130px" className="h-9 w-auto" />
                 <motion.button
                   onClick={closeMobile}
                   whileTap={{ scale: 0.9 }}

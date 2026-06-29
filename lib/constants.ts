@@ -141,66 +141,65 @@ export const TECHNOLOGIES: Technology[] = [
   { name: 'Shopify', icon: 'shopify' },
 ];
 
-export const PORTFOLIO_TABS = ['All', 'Web Design', 'Web Dev', 'SEO', 'Social Media'] as const;
+export const PORTFOLIO_TABS = ['All', 'Web Design', 'E-Commerce', 'Branding', 'Logo Design', 'Web App', 'Mobile App', '2D Animation'] as const;
 export type PortfolioTab = (typeof PORTFOLIO_TABS)[number];
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
-  {
-    id: 1,
-    title: 'Luxe Fashion Brand',
-    category: 'Web Design',
-    tag: 'UI/UX Design',
-    image: 'from-purple-600 to-blue-500',
-  },
-  {
-    id: 2,
-    title: 'TechFlow Dashboard',
-    category: 'Web Design',
-    tag: 'Dashboard Design',
-    image: 'from-orange-500 to-red-500',
-  },
-  {
-    id: 3,
-    title: 'E-Commerce Platform',
-    category: 'Web Dev',
-    tag: 'Full Stack',
-    image: 'from-green-500 to-teal-400',
-  },
-  {
-    id: 4,
-    title: 'SaaS Landing Page',
-    category: 'Web Dev',
-    tag: 'Next.js',
-    image: 'from-pink-500 to-purple-500',
-  },
-  {
-    id: 5,
-    title: 'Local Restaurant SEO',
-    category: 'SEO',
-    tag: 'Local SEO',
-    image: 'from-yellow-400 to-orange-400',
-  },
-  {
-    id: 6,
-    title: 'Legal Firm Rankings',
-    category: 'SEO',
-    tag: 'Technical SEO',
-    image: 'from-blue-400 to-indigo-500',
-  },
-  {
-    id: 7,
-    title: 'Fitness Brand Growth',
-    category: 'Social Media',
-    tag: 'Instagram Growth',
-    image: 'from-red-500 to-pink-500',
-  },
-  {
-    id: 8,
-    title: 'Beauty Brand Campaign',
-    category: 'Social Media',
-    tag: 'Meta Ads',
-    image: 'from-teal-400 to-cyan-500',
-  },
+  // ── Web Design ──────────────────────────────────────────────────────────────
+  { id: 1,  title: 'Creative Agency Website',    category: 'Web Design',   tag: 'Website',        image: 'from-violet-600 to-blue-500',    imageSrc: '/portfolio/web-design/website/portfolio-img-01.webp' },
+  { id: 2,  title: 'Corporate Business Site',    category: 'Web Design',   tag: 'Website',        image: 'from-blue-600 to-cyan-500',      imageSrc: '/portfolio/web-design/website/portfolio-img-02.webp' },
+  { id: 3,  title: 'Restaurant & Food Website',  category: 'Web Design',   tag: 'Website',        image: 'from-orange-500 to-red-400',     imageSrc: '/portfolio/web-design/website/portfolio-img-03.webp' },
+  { id: 4,  title: 'Real Estate Website',        category: 'Web Design',   tag: 'Website',        image: 'from-teal-500 to-green-500',     imageSrc: '/portfolio/web-design/website/portfolio-img-04.webp' },
+  { id: 5,  title: 'Healthcare Practice Site',   category: 'Web Design',   tag: 'Website',        image: 'from-sky-500 to-blue-400',       imageSrc: '/portfolio/web-design/website/portfolio-img-05.webp' },
+  { id: 6,  title: 'Photography Portfolio',      category: 'Web Design',   tag: 'Website',        image: 'from-slate-600 to-gray-500',     imageSrc: '/portfolio/web-design/website/portfolio-img-06.webp' },
+
+  // ── E-Commerce ──────────────────────────────────────────────────────────────
+  { id: 7,  title: 'Fashion E-Commerce Store',   category: 'E-Commerce',   tag: 'E-Commerce',     image: 'from-pink-500 to-rose-400',      imageSrc: '/portfolio/web-design/ecommerce/portfolio-img-01.webp' },
+  { id: 8,  title: 'Electronics Online Shop',    category: 'E-Commerce',   tag: 'E-Commerce',     image: 'from-indigo-500 to-blue-400',    imageSrc: '/portfolio/web-design/ecommerce/portfolio-img-02.webp' },
+  { id: 9,  title: 'Jewelry Boutique Store',     category: 'E-Commerce',   tag: 'E-Commerce',     image: 'from-amber-500 to-yellow-400',   imageSrc: '/portfolio/web-design/ecommerce/portfolio-img-03.webp' },
+  { id: 10, title: 'Beauty & Cosmetics Shop',    category: 'E-Commerce',   tag: 'E-Commerce',     image: 'from-fuchsia-500 to-pink-400',   imageSrc: '/portfolio/web-design/ecommerce/portfolio-img-04.webp' },
+  { id: 11, title: 'Sports Equipment Store',     category: 'E-Commerce',   tag: 'E-Commerce',     image: 'from-green-600 to-emerald-400',  imageSrc: '/portfolio/web-design/ecommerce/portfolio-img-05.webp' },
+  { id: 12, title: 'Home Decor Store',           category: 'E-Commerce',   tag: 'E-Commerce',     image: 'from-orange-600 to-amber-400',   imageSrc: '/portfolio/web-design/ecommerce/portfolio-img-06.webp' },
+
+  // ── Branding ────────────────────────────────────────────────────────────────
+  { id: 13, title: 'Tech Startup Brand Identity',category: 'Branding',     tag: 'Brand Identity', image: 'from-blue-600 to-violet-500',    imageSrc: '/portfolio/branding/portfolio-img-01.webp' },
+  { id: 14, title: 'Restaurant Visual Identity', category: 'Branding',     tag: 'Brand Identity', image: 'from-red-600 to-orange-500',     imageSrc: '/portfolio/branding/portfolio-img-02.webp' },
+  { id: 15, title: 'Fashion Label Branding',     category: 'Branding',     tag: 'Brand Identity', image: 'from-pink-600 to-rose-500',      imageSrc: '/portfolio/branding/portfolio-img-03.webp' },
+  { id: 16, title: 'Law Firm Brand System',      category: 'Branding',     tag: 'Brand Identity', image: 'from-slate-600 to-blue-500',     imageSrc: '/portfolio/branding/portfolio-img-04.webp' },
+  { id: 17, title: 'Fitness Studio Identity',    category: 'Branding',     tag: 'Brand Identity', image: 'from-orange-500 to-red-500',     imageSrc: '/portfolio/branding/portfolio-img-05.webp' },
+  { id: 18, title: 'Coffee Shop Branding',       category: 'Branding',     tag: 'Brand Identity', image: 'from-amber-700 to-orange-500',   imageSrc: '/portfolio/branding/portfolio-img-06.webp' },
+
+  // ── Web App ─────────────────────────────────────────────────────────────────
+  { id: 19, title: 'Analytics Dashboard',        category: 'Web App',      tag: 'Dashboard',      image: 'from-cyan-600 to-blue-500',      imageSrc: '/portfolio/webapp/portfolio-img-01.webp' },
+  { id: 20, title: 'CRM Platform',               category: 'Web App',      tag: 'SaaS App',       image: 'from-violet-600 to-purple-500',  imageSrc: '/portfolio/webapp/portfolio-img-02.webp' },
+  { id: 21, title: 'Project Management App',     category: 'Web App',      tag: 'SaaS App',       image: 'from-teal-600 to-cyan-400',      imageSrc: '/portfolio/webapp/portfolio-img-03.webp' },
+  { id: 22, title: 'E-Learning Platform',        category: 'Web App',      tag: 'Web Platform',   image: 'from-blue-500 to-indigo-500',    imageSrc: '/portfolio/webapp/portfolio-img-04.webp' },
+  { id: 23, title: 'Finance Tracker App',        category: 'Web App',      tag: 'FinTech',        image: 'from-green-600 to-teal-500',     imageSrc: '/portfolio/webapp/portfolio-img-05.webp' },
+  { id: 24, title: 'Healthcare Portal',          category: 'Web App',      tag: 'HealthTech',     image: 'from-sky-600 to-blue-400',       imageSrc: '/portfolio/webapp/portfolio-img-06.webp' },
+
+  // ── Mobile App ──────────────────────────────────────────────────────────────
+  { id: 25, title: 'Food Delivery App',          category: 'Mobile App',   tag: 'iOS / Android',  image: 'from-orange-500 to-red-500',     imageSrc: '/portfolio/mobileapp/portfolio-img-01.webp' },
+  { id: 26, title: 'Fitness & Workout App',      category: 'Mobile App',   tag: 'iOS / Android',  image: 'from-green-500 to-emerald-400',  imageSrc: '/portfolio/mobileapp/portfolio-img-02.webp' },
+  { id: 27, title: 'E-Commerce Mobile App',      category: 'Mobile App',   tag: 'iOS / Android',  image: 'from-purple-500 to-pink-400',    imageSrc: '/portfolio/mobileapp/portfolio-img-03.webp' },
+  { id: 28, title: 'Travel Booking App',         category: 'Mobile App',   tag: 'iOS / Android',  image: 'from-blue-500 to-sky-400',       imageSrc: '/portfolio/mobileapp/portfolio-img-04.webp' },
+  { id: 29, title: 'Personal Finance App',       category: 'Mobile App',   tag: 'iOS / Android',  image: 'from-teal-500 to-green-400',     imageSrc: '/portfolio/mobileapp/portfolio-img-05.webp' },
+  { id: 30, title: 'Telemedicine App',           category: 'Mobile App',   tag: 'iOS / Android',  image: 'from-cyan-500 to-blue-400',      imageSrc: '/portfolio/mobileapp/portfolio-img-06.webp' },
+
+  // ── Logo Design ─────────────────────────────────────────────────────────────
+  { id: 37, title: 'Tech Startup Logo',          category: 'Logo Design',  tag: 'Logo Design',    image: 'from-blue-600 to-cyan-500',      imageSrc: '/portfolio/logodesign/logo-img-01.webp' },
+  { id: 38, title: 'Restaurant Brand Logo',      category: 'Logo Design',  tag: 'Logo Design',    image: 'from-orange-600 to-red-500',     imageSrc: '/portfolio/logodesign/logo-img-02.webp' },
+  { id: 39, title: 'Fashion Label Logo',         category: 'Logo Design',  tag: 'Logo Design',    image: 'from-pink-600 to-rose-500',      imageSrc: '/portfolio/logodesign/logo-img-03.webp' },
+  { id: 40, title: 'Healthcare Logo Design',     category: 'Logo Design',  tag: 'Logo Design',    image: 'from-teal-600 to-green-500',     imageSrc: '/portfolio/logodesign/logo-img-04.webp' },
+  { id: 41, title: 'Finance Brand Logo',         category: 'Logo Design',  tag: 'Logo Design',    image: 'from-slate-600 to-blue-500',     imageSrc: '/portfolio/logodesign/logo-img-05.webp' },
+  { id: 42, title: 'Creative Agency Logo',       category: 'Logo Design',  tag: 'Logo Design',    image: 'from-violet-600 to-purple-500',  imageSrc: '/portfolio/logodesign/logo-img-06.webp' },
+
+  // ── 2D Animation ────────────────────────────────────────────────────────────
+  { id: 31, title: 'Brand Launch Animation',     category: '2D Animation', tag: '2D Animation',   image: 'from-yellow-500 to-orange-400',  imageSrc: '/portfolio/animation-portfolio/2d-animation/portfolio-img-01.webp' },
+  { id: 32, title: 'Product Showcase Reel',      category: '2D Animation', tag: '2D Animation',   image: 'from-pink-500 to-fuchsia-400',   imageSrc: '/portfolio/animation-portfolio/2d-animation/portfolio-img-02.webp' },
+  { id: 33, title: 'Explainer Video',            category: '2D Animation', tag: '2D Animation',   image: 'from-blue-500 to-indigo-400',    imageSrc: '/portfolio/animation-portfolio/2d-animation/portfolio-img-03.webp' },
+  { id: 34, title: 'Motion Graphics Package',    category: '2D Animation', tag: '2D Animation',   image: 'from-violet-500 to-purple-400',  imageSrc: '/portfolio/animation-portfolio/2d-animation/portfolio-img-04.webp' },
+  { id: 35, title: 'Logo Animation',             category: '2D Animation', tag: '2D Animation',   image: 'from-orange-500 to-amber-400',   imageSrc: '/portfolio/animation-portfolio/2d-animation/portfolio-img-05.webp' },
+  { id: 36, title: 'Social Media Ad Reels',      category: '2D Animation', tag: '2D Animation',   image: 'from-red-500 to-rose-400',       imageSrc: '/portfolio/animation-portfolio/2d-animation/portfolio-img-06.webp' },
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
