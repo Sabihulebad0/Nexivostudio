@@ -201,7 +201,7 @@ export default function Hero() {
                     key={word}
                     className="inline-block overflow-hidden leading-[1.2] align-bottom"
                   >
-                    <span className={`gsap-word inline-block${orange ? ' text-brand-orange' : ''}`}>
+                    <span className={`gsap-word inline-block${orange ? ' text-gradient-orange' : ''}`}>
                       {word}&nbsp;
                     </span>
                   </span>
@@ -224,15 +224,15 @@ export default function Hero() {
             </div>
 
             {/* Stats */}
-            <div className="hero-stats flex gap-8 mt-12 pt-10 border-t border-white/8">
+            <div className="hero-stats flex gap-8 mt-12 pt-10" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
               {statsData.map((stat, i) => (
-                <div key={stat.label}>
-                  <div className="font-grotesk font-bold text-2xl text-brand-orange">
+                <div key={stat.label} className="relative">
+                  <div className="font-grotesk font-bold text-2xl text-gradient-orange" style={{ filter: 'drop-shadow(0 0 8px rgba(255,106,28,0.4))' }}>
                     <span ref={(el) => { counterRefs.current[i] = el; }}>
                       0{stat.suffix}
                     </span>
                   </div>
-                  <div className="font-bricolage text-xs text-white/45 mt-0.5">{stat.label}</div>
+                  <div className="font-bricolage text-xs text-white/40 mt-1">{stat.label}</div>
                 </div>
               ))}
             </div>

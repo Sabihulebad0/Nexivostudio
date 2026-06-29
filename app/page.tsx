@@ -7,8 +7,13 @@ import Pricing from '@/components/sections/Pricing';
 import Blog from '@/components/sections/Blog';
 import Newsletter from '@/components/sections/Newsletter';
 import ContactUs from '@/components/sections/ContactUs';
+import { client } from '@/sanity/lib/client';
+import { RECENT_POSTS_QUERY } from '@/sanity/lib/queries';
+import type { SanityPost } from '@/types/sanity';
 
-export default function Home() {
+export default async function Home() {
+  const posts = await client.fetch<SanityPost[]>(RECENT_POSTS_QUERY).catch(() => []);
+
   return (
     <>
       <Hero />
@@ -17,7 +22,7 @@ export default function Home() {
       <Technologies />
       <Portfolio />
       <Pricing />
-      <Blog />
+      <Blog posts={posts} />
       <Newsletter />
       <ContactUs />
     </>

@@ -18,13 +18,13 @@ export default function Button({
   disabled = false,
 }: ButtonProps) {
   const base =
-    'inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold font-grotesk transition-all duration-200 cursor-pointer text-sm leading-none disabled:opacity-50 disabled:cursor-not-allowed';
+    'inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold font-grotesk transition-all duration-300 cursor-pointer text-sm leading-none disabled:opacity-50 disabled:cursor-not-allowed select-none';
 
   const variants: Record<string, string> = {
     primary:
-      'bg-brand-orange text-brand-cream hover:brightness-110 active:scale-95',
+      'bg-gradient-to-r from-[#FF6A1C] to-[#FF8C42] text-brand-cream shadow-[0_4px_20px_rgba(255,106,28,0.35)] hover:shadow-[0_6px_28px_rgba(255,106,28,0.55)] hover:brightness-110 hover:-translate-y-0.5 active:scale-95 active:translate-y-0',
     ghost:
-      'bg-white/5 text-brand-cream border border-white/20 backdrop-blur-sm hover:bg-white/10 active:scale-95',
+      'bg-white/5 text-brand-cream border border-white/15 backdrop-blur-sm hover:bg-white/10 hover:border-brand-orange/35 hover:text-brand-orange hover:-translate-y-0.5 active:scale-95 active:translate-y-0',
   };
 
   return (

@@ -42,7 +42,7 @@ export default function Services() {
           <SectionLabel>Our Services</SectionLabel>
           <h2 className="font-grotesk font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-cream mt-2">
             What We{' '}
-            <span className="text-brand-orange">Do Best</span>
+            <span className="text-gradient-orange">Do Best</span>
           </h2>
           <p className="font-bricolage text-base text-white/50 mt-4 max-w-xl mx-auto leading-relaxed">
             End-to-end digital services designed to grow your business, elevate your brand,
@@ -57,7 +57,7 @@ export default function Services() {
               <div key={cat.title} className="service-card">
                 <GlassCard className="p-6 h-full glass-hover group flex flex-col">
                   {/* Icon */}
-                  <div className="w-11 h-11 rounded-xl bg-brand-orange/10 flex items-center justify-center mb-4 group-hover:bg-brand-orange/20 transition-colors duration-300">
+                  <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-orange/15 to-brand-orange/5 border border-brand-orange/15 flex items-center justify-center mb-5 group-hover:from-brand-orange/30 group-hover:to-brand-orange/10 group-hover:border-brand-orange/30 group-hover:shadow-[0_0_16px_rgba(255,106,28,0.25)] transition-all duration-300">
                     <Icon size={20} className="text-brand-orange" />
                   </div>
 

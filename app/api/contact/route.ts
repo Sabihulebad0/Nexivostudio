@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import dns from 'dns/promises';
+import { isFreeEmail, getEmailDomain } from '@/lib/email-validation';
 
 // ── HTML email builder ────────────────────────────────────────────────────────
 
@@ -63,7 +65,35 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { formType, name, email, phone, service, budget, message, plan, price, period, recaptchaToken } = body;
 
-    // reCAPTCHA Enterprise verification
+    // ── Email validation ─────────────────────────────────────────────────────
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      return NextResponse.json({ error: 'Invalid email address' }, { status: 400 });
+    }
+
+    if (isFreeEmail(email)) {
+      return NextResponse.json(
+        { error: 'Please use a company or business email address' },
+        { status: 400 }
+      );
+    }
+
+    // DNS MX record check — verify the email domain actually has mail servers
+    try {
+      const mx = await dns.resolveMx(getEmailDomain(email));
+      if (!mx || mx.length === 0) {
+        return NextResponse.json(
+          { error: 'This email domain does not appear to exist' },
+          { status: 400 }
+        );
+      }
+    } catch {
+      return NextResponse.json(
+        { error: 'This email domain does not appear to exist' },
+        { status: 400 }
+      );
+    }
+
+    // ── reCAPTCHA Enterprise verification
     if (process.env.RECAPTCHA_API_KEY && process.env.RECAPTCHA_PROJECT_ID) {
       if (!recaptchaToken) {
         return NextResponse.json({ error: 'reCAPTCHA token missing' }, { status: 400 });

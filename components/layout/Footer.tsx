@@ -5,7 +5,9 @@ import { NAV_LINKS, SERVICES } from '@/lib/constants';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/8 bg-[#0a0a0a]">
+    <footer className="relative bg-[#0a0a0a]" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      {/* Gradient accent line at top */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-orange/50 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Column 1 — Brand */}

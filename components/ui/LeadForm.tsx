@@ -1,9 +1,11 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useReCaptcha } from '@/hooks/useReCaptcha';
+import { validateBusinessEmail } from '@/lib/email-validation';
 import GlassCard from './GlassCard';
 import Button from './Button';
+import PhoneInput from './PhoneInput';
 
 interface LeadFormData {
   name: string;
@@ -24,6 +26,7 @@ export default function LeadForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting, isSubmitSuccessful },
     reset,
     setError,
@@ -38,7 +41,16 @@ export default function LeadForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...data, formType: 'lead-form', recaptchaToken }),
       });
-      if (!res.ok) throw new Error('Server error');
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({})) as { error?: string };
+        const msg = body.error ?? 'Something went wrong. Please try again.';
+        if (msg.toLowerCase().includes('email')) {
+          setError('email', { message: msg });
+        } else {
+          setError('root', { message: msg });
+        }
+        return;
+      }
       reset();
     } catch {
       setError('root', { message: 'Something went wrong. Please try again.' });
@@ -77,14 +89,11 @@ export default function LeadForm() {
         </div>
 
         <div>
-          <label className={labelClass}>Email</label>
+          <label className={labelClass}>Business Email</label>
           <input
-            {...register('email', {
-              required: 'Email is required',
-              pattern: { value: /^\S+@\S+\.\S+$/, message: 'Enter a valid email' },
-            })}
+            {...register('email', { validate: validateBusinessEmail })}
             type="email"
-            placeholder="you@example.com"
+            placeholder="you@yourcompany.com"
             className={inputClass}
           />
           {errors.email && (
@@ -94,11 +103,18 @@ export default function LeadForm() {
 
         <div>
           <label className={labelClass}>Phone Number</label>
-          <input
-            {...register('phone', { required: 'Phone number is required' })}
-            type="tel"
-            placeholder="+1 (555) 000-0000"
-            className={inputClass}
+          <Controller
+            name="phone"
+            control={control}
+            rules={{ required: 'Phone number is required' }}
+            render={({ field }) => (
+              <PhoneInput
+                value={field.value}
+                onChange={field.onChange}
+                placeholder="Phone number"
+                hasError={!!errors.phone}
+              />
+            )}
           />
           {errors.phone && (
             <p className="mt-1 text-xs text-red-400 font-bricolage">{errors.phone.message}</p>

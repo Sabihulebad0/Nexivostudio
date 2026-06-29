@@ -21,7 +21,7 @@ export default function Technologies() {
           <SectionLabel>Technologies We Use</SectionLabel>
           <h2 className="font-grotesk font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-cream mt-2">
             Built with{' '}
-            <span className="text-brand-orange">Modern Tools</span>
+            <span className="text-gradient-orange">Modern Tools</span>
           </h2>
           <p className="font-bricolage text-base text-white/50 mt-4 max-w-xl mx-auto leading-relaxed">
             We leverage the latest, most proven technologies to build fast, scalable, and

@@ -43,7 +43,7 @@ export default function Pricing() {
           <SectionLabel>Pricing</SectionLabel>
           <h2 className="font-grotesk font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-cream mt-2">
             Transparent, Honest{' '}
-            <span className="text-brand-orange">Pricing</span>
+            <span className="text-gradient-orange">Pricing</span>
           </h2>
           <p className="font-bricolage text-base text-white/50 mt-4 max-w-xl mx-auto leading-relaxed">
             No hidden fees. Choose the service and the plan that fits your goals and budget.

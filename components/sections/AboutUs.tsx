@@ -67,7 +67,7 @@ export default function AboutUs() {
             <SectionLabel>About Us</SectionLabel>
             <h2 className="font-grotesk font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-cream mt-2 mb-6 leading-tight">
               A Studio Built for{' '}
-              <span className="text-brand-orange">Digital Growth</span>
+              <span className="text-gradient-orange">Digital Growth</span>
             </h2>
             <p className="font-bricolage text-base text-white/55 leading-relaxed mb-5">
               NexivoStudio is a full-service digital agency specializing in web design, web
@@ -96,22 +96,27 @@ export default function AboutUs() {
           <div className="stat-cards flex flex-col gap-5">
             {stats.map((stat) => (
               <div key={stat.label} className="stat-card">
-                <GlassCard className="p-6 glass-hover flex items-center gap-6">
-                  <div className="shrink-0">
-                    <div
-                      className="stat-number font-grotesk font-bold text-4xl text-brand-orange"
-                      data-target={stat.value}
-                      data-suffix={stat.suffix}
-                    >
-                      0{stat.suffix}
+                <GlassCard className="glass-hover overflow-hidden">
+                  <div className="flex items-center gap-6 p-6">
+                    {/* Orange left accent */}
+                    <div className="shrink-0 w-1 self-stretch rounded-full bg-gradient-to-b from-[#FF6A1C] to-[#FF8C42] opacity-80" />
+                    <div className="shrink-0">
+                      <div
+                        className="stat-number font-grotesk font-bold text-4xl text-gradient-orange"
+                        data-target={stat.value}
+                        data-suffix={stat.suffix}
+                        style={{ filter: 'drop-shadow(0 0 8px rgba(255,106,28,0.35))' }}
+                      >
+                        0{stat.suffix}
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className="font-grotesk font-semibold text-brand-cream text-lg">
-                      {stat.label}
-                    </div>
-                    <div className="font-bricolage text-sm text-white/45 mt-0.5">
-                      {stat.desc}
+                    <div>
+                      <div className="font-grotesk font-semibold text-brand-cream text-lg">
+                        {stat.label}
+                      </div>
+                      <div className="font-bricolage text-sm text-white/40 mt-0.5">
+                        {stat.desc}
+                      </div>
                     </div>
                   </div>
                 </GlassCard>

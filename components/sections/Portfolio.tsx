@@ -49,7 +49,7 @@ export default function Portfolio() {
         >
           <SectionLabel>Our Work</SectionLabel>
           <h2 className="font-grotesk font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-cream mt-2">
-            Featured <span className="text-brand-orange">Projects</span>
+            Featured <span className="text-gradient-orange">Projects</span>
           </h2>
           <p className="font-bricolage text-base text-white/50 mt-4 max-w-xl mx-auto leading-relaxed">
             A curated selection of our best work across design, development, and digital marketing.
